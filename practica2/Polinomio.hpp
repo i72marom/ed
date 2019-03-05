@@ -1,6 +1,6 @@
 /*!
-   \file Polinomio.hpp
-   \brief Definición de la clase Polinomio
+\file Polinomio.hpp
+\brief Definición de la clase Polinomio
 */
 
 #ifndef _POLINOMIO_HPP_
@@ -10,7 +10,7 @@
 #include <cassert>
 
 // Vector de STL
-#include <vector>
+#include <list>
 
 // Para usar la función abs
 #include <cmath>
@@ -23,22 +23,29 @@
 namespace ed {
 
 //!  Definición de la clase Polinomio que hereda de PolinomioInterfaz
-class Polinomio: public ed::PolinomioInterfaz
-{
+class Polinomio: public ed::PolinomioInterfaz {
 
-  //! \name Atributos privados de la clase Polinomio
-   private:
+	//! \name Atributos privados de la clase Polinomio
+	private:
+		std::list <Monomio> polinomio_;
 
-  // COMPLETAR
+	// COMPLETAR
 
-   //! \name Funciones o métodos públicos de la clase Polinomio
-   public:
+	//! \name Funciones o métodos públicos de la clase Polinomio
+	public:
 
 	//! \name Constructores de la clase Polinomio
 
-  // COMPLETAR
+	inline Polinomio() {
+		Monomio m;
 
-  //! \name Observadores: funciones de consulta de la clase Polinomio
+		// se comprueba la postcondicion
+		#ifndef NDEBUG
+			assert(polinomio_.empty() == true);
+		#endif
+	}
+
+	//! \name Observadores: funciones de consulta de la clase Polinomio
 
 	// COMPLETAR
 
@@ -48,9 +55,9 @@ class Polinomio: public ed::PolinomioInterfaz
 	// COMPLETAR
 
 
- 	////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
 
-   //! \name Operadores de la clase Polinomio
+	//! \name Operadores de la clase Polinomio
 
 	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 	Polinomio & operator=(Polinomio const &p);
@@ -61,7 +68,7 @@ class Polinomio: public ed::PolinomioInterfaz
 	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 	Polinomio & operator=(double const &x);
 
-  // Operadores aritméticos y asignación
+	// Operadores aritméticos y asignación
 
 		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 	Polinomio & operator+=(Polinomio const &p);
@@ -70,7 +77,7 @@ class Polinomio: public ed::PolinomioInterfaz
 	// COMPLETAR EL RESTO DE OPERADORES
 
 
-  /////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////
 
 	//! \name Funciones lectura y escritura de la clase Polinomio
 
@@ -84,12 +91,12 @@ class Polinomio: public ed::PolinomioInterfaz
 	// COMPLETAR
 
 
-}; // Fin de la definición de la clase Polinomio
+	}; // Fin de la definición de la clase Polinomio
 
 
 
 
-} // \brief Fin de namespace ed.
+	} // \brief Fin de namespace ed.
 
-//  _POLINOMIO_HPP_
-#endif
+	//  _POLINOMIO_HPP_
+	#endif
