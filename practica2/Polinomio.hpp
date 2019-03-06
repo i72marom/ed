@@ -81,6 +81,13 @@ class Polinomio: public ed::PolinomioInterfaz {
 		return true;
 	}
 
+	/**----------------------------------------------------------
+	@fn int getGrado()
+	@brief Obtiene el grado del polinomio.
+	@pre Los monomios están ordenados de mayor a menor grado.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
 	inline int getGrado() const {
 
 		#ifndef NDEBUG
@@ -103,18 +110,50 @@ class Polinomio: public ed::PolinomioInterfaz {
 
 	//! \name Operadores de la clase Polinomio
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/**----------------------------------------------------------
+	@fn Polinomio & operator=(Polinomio const &p)
+	@brief Operador de asignacion que copia un polinomio en el polinomio actual 
+	@param Polinomio const &p
+	@pre El polinomio p debe ser diferente al polinomio actual.
+	@post El polinomio actual debe ser igual al polinomio p.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
 	Polinomio & operator=(Polinomio const &p);
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/**----------------------------------------------------------
+	@fn Polinomio & operator=(Monomio const &m)
+	@brief Operador de asignacion que copia un monomio en el polinomio actual 
+	@param Monomio const &m
+	@post El polinomio actual debe tener un unico monomio que será igual al monomio m.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
 	Polinomio & operator=(Monomio const &m);
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/**----------------------------------------------------------
+	@fn Polinomio & operator=(double const &x)
+	@brief Operador de asignacion que copia un numero en el polinomio actual 
+	@param double const x
+	@post El polinomio actual debe ser igual al numero x.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
 	Polinomio & operator=(double const &x);
 
 	// Operadores aritméticos y asignación
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/**----------------------------------------------------------
+	@fn 
+	@brief 
+	@param 
+	@param 
+	@pre 
+	@post 
+	@post 
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
 	Polinomio & operator+=(Polinomio const &p);
 
 
