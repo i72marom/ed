@@ -77,13 +77,21 @@ class Polinomio: public ed::PolinomioInterfaz {
 		
 	----------------------------------------------------------*/
 	inline bool esNulo() const {
-	//	ed::Monomio m(this->polinomio_.front());
-
 		if (this->polinomio_.front().getGrado() != 0 || this->polinomio_.front().getCoeficiente() != 0.0) return false;
 		return true;
 	}
 
+	inline int getGrado() const {
 
+		#ifndef NDEBUG
+			std::vector <Monomio> :: iterator itPolinomio;
+			for (itPolinomio = this->polinomio_.begin(); itPolinomio != this->polinomio_.end(); itPolinomio++) {
+				assert(itPolinomio->getGrado() > itPolinomio+1->getGrado());
+			}
+		#endif
+
+		return this->front().getGrado();
+	}
 
 
 	//! \name Funciones de modificación de la clase Polinomio
