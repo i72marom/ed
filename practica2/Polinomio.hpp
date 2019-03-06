@@ -10,7 +10,7 @@
 #include <cassert>
 
 // Vector de STL
-#include <list>
+#include <vector>
 
 // Para usar la función abs
 #include <cmath>
@@ -27,7 +27,7 @@ class Polinomio: public ed::PolinomioInterfaz {
 
 	//! \name Atributos privados de la clase Polinomio
 	private:
-		std::list <Monomio> polinomio_;
+		std::vector <Monomio> polinomio_;
 
 	// COMPLETAR
 
@@ -77,11 +77,13 @@ class Polinomio: public ed::PolinomioInterfaz {
 		
 	----------------------------------------------------------*/
 	inline bool esNulo() const {
-		ed::Monomio m(this->polinomio_.front());
+	//	ed::Monomio m(this->polinomio_.front());
 
-		if (m.getGrado() != 0 || m.getCoeficiente() != 0.0) return false;
+		if (this->polinomio_.front().getGrado() != 0 || this->polinomio_.front().getCoeficiente() != 0.0) return false;
 		return true;
 	}
+
+
 
 
 	//! \name Funciones de modificación de la clase Polinomio
