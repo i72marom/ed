@@ -36,18 +36,52 @@ class Polinomio: public ed::PolinomioInterfaz {
 
 	//! \name Constructores de la clase Polinomio
 
+	/**----------------------------------------------------------
+	@fn Polinomio()
+	@brief Crea un nuevo monomio usando el coeficiente 0.0 y el grado 0.
+	@post El polinomio creado es nulo.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
 	inline Polinomio() {
 		Monomio m;
 
 		// se comprueba la postcondicion
 		#ifndef NDEBUG
-			assert(polinomio_.empty() == true);
+			assert(this->esNulo());
 		#endif
 	}
 
+	/**----------------------------------------------------------
+	@fn Polinomio(Polinomio p)
+	@brief Crea un nuevo polinomio a partir de otro polinomio.
+	@post El polinomio creado es igual al polinomio p.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
+/*	inline Polinomio(Polinomio &p) {
+		
+
+		// se comprueba la postcondicion
+		#ifndef NDEBUG
+			assert(this->esNulo());
+		#endif
+	}*/
+
 	//! \name Observadores: funciones de consulta de la clase Polinomio
 
-	// COMPLETAR
+	/**----------------------------------------------------------
+	@fn bool esNulo()
+	@brief Comprueba si un polinomio es igual al monomio de coeficiente 0.0 y grado 0.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
+	inline bool esNulo() const {
+		ed::Monomio m(this->polinomio_.front());
+
+		if (m.getGrado() != 0 || m.getCoeficiente() != 0.0) return false;
+		return true;
+	}
 
 
 	//! \name Funciones de modificación de la clase Polinomio
