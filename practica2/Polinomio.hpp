@@ -88,16 +88,15 @@ class Polinomio: public ed::PolinomioInterfaz {
 	@author Manuel Mariscal
 		
 	----------------------------------------------------------*/
-	inline int getGrado() const {
+	inline int getGrado() {
 
 		#ifndef NDEBUG
-			std::vector <Monomio> :: iterator itPolinomio;
-			for (itPolinomio = this->polinomio_.begin(); itPolinomio != this->polinomio_.end(); itPolinomio++) {
-				assert(itPolinomio->getGrado() > itPolinomio+1->getGrado());
+			for (unsigned i = 0; i < this->polinomio_.size(); ++i) {
+				assert(this->polinomio_.at(i).getGrado() > this->polinomio_.at(i+1).getGrado());
 			}
 		#endif
 
-		return this->front().getGrado();
+		return this->polinomio_.front().getGrado();
 	}
 
 
