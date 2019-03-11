@@ -59,14 +59,19 @@ class Polinomio: public ed::PolinomioInterfaz {
 	@author Manuel Mariscal
 		
 	----------------------------------------------------------*/
-/*	inline Polinomio(Polinomio &p) {
-		
+	inline Polinomio(Polinomio const &p) {
+		this->polinomio_ = p.polinomio_;
 
-		// se comprueba la postcondicion
 		#ifndef NDEBUG
-			assert(this->esNulo());
+			std::vector <Monomio> :: iterator itPolinomio;
+			int i = 0;
+
+			for (itPolinomio = this->polinomio_.begin(); itPolinomio != this->polinomio_.end(); itPolinomio++) {
+				assert(itPolinomio->getGrado() == p.polinomio_.at(i).getGrado());
+				assert(itPolinomio->getCoeficiente() == p.polinomio_.at(i).getCoeficiente());
+			}
 		#endif
-	}*/
+	}
 
 	//! \name Observadores: funciones de consulta de la clase Polinomio
 
@@ -88,7 +93,7 @@ class Polinomio: public ed::PolinomioInterfaz {
 	@author Manuel Mariscal
 		
 	----------------------------------------------------------*/
-	inline int getGrado() {
+	inline int getGrado() const {
 
 		#ifndef NDEBUG
 			for (unsigned i = 0; i < this->polinomio_.size(); ++i) {
