@@ -16,9 +16,8 @@
 
 /////////////////////////////////////////////////////////////
 
-ed::Polinomio & ed::Polinomio::operator=(ed::Polinomio const &p)
-{
-	// COMPLETAR
+ed::Polinomio & ed::Polinomio::operator=(ed::Polinomio const &p) {
+	
 
 	// Se devuelve el objeto actual
 	return *this;
