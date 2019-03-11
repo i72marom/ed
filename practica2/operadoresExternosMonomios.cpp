@@ -199,7 +199,7 @@ namespace ed
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == m2.getGrado());
 			assert(nuevo->getGrado() == m1.getGrado());
-			assert(abs((m1.getCoeficiente() + m2.getCoeficiente()) - nuevo->getCoeficiente()) < COTA_ERROR);
+			assert(std::abs((m1.getCoeficiente() + m2.getCoeficiente()) - nuevo->getCoeficiente()) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
@@ -227,7 +227,7 @@ namespace ed
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == m2.getGrado());
 			assert(nuevo->getGrado() == m1.getGrado());
-			assert(abs(nuevo->getCoeficiente() - (m1.getCoeficiente() - m2.getCoeficiente())) < COTA_ERROR);
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() - m2.getCoeficiente())) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
@@ -250,7 +250,7 @@ namespace ed
 		// postcondicion
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == (m1.getGrado() + m2.getGrado()));
-			assert(abs(nuevo->getCoeficiente() - (m1.getCoeficiente() * m2.getCoeficiente())) < COTA_ERROR);
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() * m2.getCoeficiente())) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
@@ -269,7 +269,7 @@ namespace ed
 		// postcondicion
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == m1.getGrado());
-			assert(abs(nuevo->getCoeficiente() - (m1.getCoeficiente() * x)) < COTA_ERROR);
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() * x)) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
@@ -288,7 +288,7 @@ namespace ed
 		// postcondicion
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == m1.getGrado());
-			assert(abs(nuevo->getCoeficiente() - (m1.getCoeficiente() * x)) < COTA_ERROR);
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() * x)) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
@@ -316,7 +316,7 @@ namespace ed
 		// postcondicion
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == (m1.getGrado() - m2.getGrado()));
-			assert(abs(nuevo->getCoeficiente() - (m1.getCoeficiente() / m2.getCoeficiente())) < COTA_ERROR);
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() / m2.getCoeficiente())) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
@@ -340,7 +340,7 @@ namespace ed
 		// postcondicion
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == m1.getGrado());
-			assert(abs(nuevo->getCoeficiente() - (m1.getCoeficiente() / x)) < COTA_ERROR);
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() / x)) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
@@ -365,7 +365,7 @@ namespace ed
 		// postcondicion
 		#ifndef NDEBUG
 			assert(nuevo->getGrado() == m1.getGrado());
-			assert(abs(nuevo->getCoeficiente() - (m1.getCoeficiente() / x)) < COTA_ERROR);
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() / x)) < COTA_ERROR);
 		#endif
 
 		// Se devuelve el resultado
