@@ -142,6 +142,25 @@ class Polinomio: public ed::PolinomioInterfaz {
 		return false;
 	}
 
+	/**----------------------------------------------------------
+	@fn Monomio getMonomio(int n)
+	@brief Obtiene el monomio de grado indicado.
+	@pre El polinomio debe existir.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
+	inline const Monomio getMonomio(int n) {
+		std::vector<Monomio> :: iterator itPolinomio;
+	
+		#ifndef NDEBUG
+			assert(!this->esNulo());
+		#endif
+
+		for (itPolinomio = this->polinomio_.begin(); itPolinomio != this->polinomio_.end(); itPolinomio++) {
+			if (itPolinomio->getGrado() == n) return *itPolinomio;
+		}
+	}
+
 	//! \name Funciones de modificación de la clase Polinomio
 
 	// COMPLETAR
