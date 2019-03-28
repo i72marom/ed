@@ -68,7 +68,7 @@ void ed::testPolinomio()
   std::cout << RESET;
   std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Polinomio " << std::endl << std::endl;
 
-  /*
+
 	double x;
 
 	ed::Monomio m;
@@ -106,7 +106,7 @@ void ed::testPolinomio()
 
 	// Constructor de copia
 	ed::Polinomio p3(p1);
-
+/*
 	//
 	// Entre un polinomio y un número
 	std::cout << BIGREEN;

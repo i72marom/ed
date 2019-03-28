@@ -17,6 +17,7 @@
 
 #include "PolinomioInterfaz.hpp"
 #include "Monomio.hpp"
+#include "macros.hpp"
 
 
 // Se incluye la clase Polinomio dentro del espacio de nombre de la asigantura: ed
@@ -224,7 +225,26 @@ class Polinomio: public ed::PolinomioInterfaz {
 
 	//! \name Funciones lectura y escritura de la clase Polinomio
 
-	// COMPLETAR
+	/**----------------------------------------------------------
+	@fn void leerPolinomio()
+	@brief Lee desde el teclado un polinomio.
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
+	inline void leerPolinomio() {
+		int gradoPolinomio;
+		Monomio m;
+
+		std::cout << "Grado del polinomio: ";
+		std::cin >> gradoPolinomio;
+
+		std::cout << BIGREEN;
+		std::cout << "Introduce los monomios ordenados de mayor a menor." << std::endl << std:: endl;
+		for (int i = 0; i < gradoPolinomio; i++) {
+			m.leerMonomio();
+			this->polinomio_.push_back(m);
+		}
+	}
 
 
 	///////////////////////////////////////////////////////////////////////
