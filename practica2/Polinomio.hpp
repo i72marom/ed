@@ -45,7 +45,8 @@ class Polinomio: public ed::PolinomioInterfaz {
 		
 	----------------------------------------------------------*/
 	inline Polinomio() {
-		Monomio m;
+		ed::Monomio m;
+		this->polinomio_.push_back(m);
 
 		// se comprueba la postcondicion
 		#ifndef NDEBUG
@@ -69,7 +70,7 @@ class Polinomio: public ed::PolinomioInterfaz {
 
 			for (itPolinomio = this->polinomio_.begin(); itPolinomio != this->polinomio_.end(); itPolinomio++) {
 				assert(itPolinomio->getGrado() == p.polinomio_.at(i).getGrado());
-				assert(itPolinomio->getCoeficiente() == p.polinomio_.at(i).getCoeficiente());
+				assert(itPolinomio->getCoeficiente() == p.polinomio_.at(i++).getCoeficiente());
 			}
 		#endif
 	}
@@ -239,8 +240,10 @@ class Polinomio: public ed::PolinomioInterfaz {
 		std::cin >> gradoPolinomio;
 
 		std::cout << BIGREEN;
-		std::cout << "Introduce los monomios ordenados de mayor a menor." << std::endl << std:: endl;
-		for (int i = 0; i < gradoPolinomio; i++) {
+		std::cout << std::endl << "Introduce los monomios ordenados de mayor a menor." << std::endl << std:: endl;
+		std::cout << RESET;
+
+		for (int i = 0; i < gradoPolinomio+1; i++) {
 			m.leerMonomio();
 			this->polinomio_.push_back(m);
 		}
