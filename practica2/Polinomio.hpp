@@ -239,7 +239,7 @@ class Polinomio: public ed::PolinomioInterfaz {
 		std::cout << "Grado del polinomio: ";
 		std::cin >> gradoPolinomio;
 
-		std::cout << BIGREEN;
+		std::cout << BIYELLOW;
 		std::cout << std::endl << "Introduce los monomios ordenados de mayor a menor." << std::endl << std:: endl;
 		std::cout << RESET;
 
@@ -249,6 +249,24 @@ class Polinomio: public ed::PolinomioInterfaz {
 		}
 	}
 
+	/**----------------------------------------------------------
+	@fn 
+	@brief 
+	@param 
+	@param 
+	@pre 
+	@post 
+	@post 
+	@author Manuel Mariscal
+		
+	----------------------------------------------------------*/
+	inline void escribirPolinomio() {
+		std::vector <Monomio> :: iterator itPolinomio;
+
+		for (itPolinomio = this->polinomio_.begin(); itPolinomio != this->polinomio_.end(); itPolinomio++) {
+			itPolinomio->escribirMonomio();
+		}
+	}
 
 	///////////////////////////////////////////////////////////////////////
 
