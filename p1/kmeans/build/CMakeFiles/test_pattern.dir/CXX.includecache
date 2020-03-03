@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mmr23/informatica/ed/practicas/p1_1920/kmeans/pattern.cpp
+cassert
+-
+fstream
+-
+sstream
+-
+vector
+-
+string
+-
+pattern.hpp
+/home/mmr23/informatica/ed/practicas/p1_1920/kmeans/pattern.hpp
+
+/home/mmr23/informatica/ed/practicas/p1_1920/kmeans/pattern.hpp
+cassert
+-
+iostream
+-
+exception
+-
+valarray
+-
+
