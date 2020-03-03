@@ -121,7 +121,9 @@ class Pattern
 
 	protected:
 
-	//DONE
+	//TODO
+	// class_: almacena la clase o cluster al que pertenece cada patron
+	// pattern_: almacena el patron como vector de n dimensiones
 	int class_;
 	std::valarray<float> pattern_; 
 };

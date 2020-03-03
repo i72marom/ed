@@ -8,7 +8,8 @@
 
 Pattern::Pattern(const size_t dim, const int class_label)
 {
-	//DONE
+	//TODO
+	// se usa resize() para modificar el tamaño de un valarray, esto borra el contenido que pueda existir
 	pattern_.resize(dim);
 	class_ = class_label;
 }
@@ -16,7 +17,7 @@ Pattern::Pattern(const size_t dim, const int class_label)
 Pattern::Pattern(const float values[], const size_t dim, const int class_label)
 {
 	assert(dim>0);
-	//DONE
+	//TODO
 	pattern_.resize(dim);
 	class_ = class_label;
 	for (int i = 0; i < dim; ++i)
@@ -25,7 +26,8 @@ Pattern::Pattern(const float values[], const size_t dim, const int class_label)
 
 Pattern::Pattern(const Pattern& other)
 {
-	//DONE
+	//TODO
+	// constructor de copia
 	pattern_.resize(other.pattern_.size());
 	pattern_ = other.pattern_;
 	class_ = other.class_;
@@ -39,27 +41,27 @@ Pattern::~Pattern()
 
 size_t Pattern::dim() const
 {
-	//DONE
+	//TODO
 	return pattern_.size();
 }
 
 int Pattern::class_label() const
 {
-	//DONE
+	//TODO
 	return class_;
 }
 
 float Pattern::operator [](const size_t idx) const
 {
 	assert((0 <= idx) && (idx < dim()));
-	//DONE
+	//TODO
 	return pattern_[idx];
 }
 
 float Pattern::sum() const
 {
-	//DONE
-	float sum;
+	//TODO
+	float sum = 0;
 	for (int i = 0; i < pattern_.size(); ++i)
 		sum += pattern_[i];
 	return sum;
@@ -67,38 +69,38 @@ float Pattern::sum() const
 
 float Pattern::max() const
 {
-	//DONE
+	//TODO
 	return pattern_.max();
 }
 
 float Pattern::min() const
 {
-	//DONE
+	//TODO
 	return pattern_.min();
 }
 
 void Pattern::set_class_label(const int new_label)
 {
-	//DONE
+	//TODO
 	class_ = new_label;
 }
 
 void Pattern::set_dim(size_t new_dim)
 {
-	//DONE
+	//TODO
 	pattern_.resize(new_dim);
 }
 
 void Pattern::set_value(const size_t i, const float new_v)
 {
 	assert(0<=i && i<dim());
-	//DONE
+	//TODO
 	pattern_[i] = new_v;
 }
 
 void Pattern::set_values(const float values[])
 {
-	//DONE
+	//TODO
 	for (int i = 0; i < dim(); ++i)
 		pattern_[i] = values[i];
 }
@@ -106,7 +108,7 @@ void Pattern::set_values(const float values[])
 Pattern& Pattern::operator += (const Pattern& o)
 {
 	assert(o.dim()==dim());
-	//DONE
+	//TODO
 	this->pattern_ += o.pattern_;
 	return *this;
 }
@@ -114,7 +116,7 @@ Pattern& Pattern::operator += (const Pattern& o)
 Pattern& Pattern::operator -= (const Pattern& o)
 {
 	assert(o.dim()==dim());
-	//DONE
+	//TODO
 	this->pattern_ -= o.pattern_;
 	return *this;
 }
@@ -122,14 +124,14 @@ Pattern& Pattern::operator -= (const Pattern& o)
 Pattern& Pattern::operator *= (const Pattern& o)
 {
 	assert(o.dim()==dim());
-	//DONE
+	//TODO
 	this->pattern_ *= o.pattern_;
 	return *this;
 }
 
 Pattern& Pattern::operator *= (const float c)
 {
-	//DONE
+	//TODO
 	this->pattern_ *= c;
 	return *this;
 }
@@ -137,7 +139,8 @@ Pattern& Pattern::operator *= (const float c)
 float
 distance(const Pattern& a, const Pattern& b)
 {
-	//DONE
+	//TODO
+	// distancia euclidea de un patron a otro
 	float sum = 0.0;
 	for (int i = 0; i < a.dim(); ++i) {
 		sum += pow((a[i] - b[i]), 2);
@@ -158,31 +161,27 @@ std::ostream& operator << (std::ostream& output, const Pattern& p)
 }
 
 std::istream& operator >> (std::istream& input, Pattern& p)
-	noexcept(false)
+    noexcept(false)
 {
    std::string line;
    std::getline(input, line);
    if (input && line.size()>0)
    {
-	   std::istringstream _input;
-	   _input.str(line);
-	   int class_label;
-	   std::vector<float> values;
-	   _input >> class_label;
-	   while(_input)
-	   {
-		  float v;
-		  _input >> v;
-		  if (_input)
-			  values.push_back(v);
-	   }
-	   if (values.size() != p.dim())
-		   throw std::runtime_error("Wrong input format.");
-	   else
-	   {
-		   p.set_class_label(class_label);
-		   p.set_values(&values[0]);
-	   }
+       std::istringstream _input;
+       _input.str(line);
+       int class_label;
+       std::vector<float> values;
+       _input >> class_label;
+       while(_input)
+       {
+          float v;
+          _input >> v;
+          if (_input)
+              values.push_back(v);
+       }
+       p.set_dim(values.size());
+       p.set_class_label(class_label);
+       p.set_values(&values[0]);      
    }
    return input;
 }
