@@ -14,7 +14,6 @@ kmeans_initialize_centroids(const std::vector<Pattern>& dts,
 
     //TODO : WARNING AVOD SELECT THE SAME PATTERN SEVERAL TIMES.
     // se asigna de forma aleatoria a cada centroide un patron almacenado en dts
-    srand(time(NULL));
     for (int i = 0; i < centroids.size(); ++i) {
         centroids[i] = dts[rand() % K];
         centroids[i].set_class_label(i);
