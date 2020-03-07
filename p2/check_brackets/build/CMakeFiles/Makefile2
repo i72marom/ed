@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mmr23/informatica/ed/practicas/p2/check_brackets
+CMAKE_SOURCE_DIR = /mnt/datos/informatica/ed/practicas/p2/check_brackets
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mmr23/informatica/ed/practicas/p2/check_brackets/build
+CMAKE_BINARY_DIR = /mnt/datos/informatica/ed/practicas/p2/check_brackets/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -76,14 +76,14 @@ clean: CMakeFiles/test_check_brackets.dir/clean
 CMakeFiles/test_stack.dir/all:
 	$(MAKE) -f CMakeFiles/test_stack.dir/build.make CMakeFiles/test_stack.dir/depend
 	$(MAKE) -f CMakeFiles/test_stack.dir/build.make CMakeFiles/test_stack.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mmr23/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles --progress-num=3,4 "Built target test_stack"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles --progress-num=3,4 "Built target test_stack"
 .PHONY : CMakeFiles/test_stack.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_stack.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mmr23/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_stack.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mmr23/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_stack.dir/rule
 
 # Convenience name for target.
@@ -103,14 +103,14 @@ CMakeFiles/test_stack.dir/clean:
 CMakeFiles/test_check_brackets.dir/all:
 	$(MAKE) -f CMakeFiles/test_check_brackets.dir/build.make CMakeFiles/test_check_brackets.dir/depend
 	$(MAKE) -f CMakeFiles/test_check_brackets.dir/build.make CMakeFiles/test_check_brackets.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mmr23/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles --progress-num=1,2 "Built target test_check_brackets"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles --progress-num=1,2 "Built target test_check_brackets"
 .PHONY : CMakeFiles/test_check_brackets.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_check_brackets.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mmr23/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_check_brackets.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mmr23/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_check_brackets.dir/rule
 
 # Convenience name for target.

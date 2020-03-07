@@ -6,13 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/mmr23/informatica/ed/practicas/p2/check_brackets/stack.hpp
+/mnt/datos/informatica/ed/practicas/p2/check_brackets/stack.hpp
 cassert
 -
-vector
--
 
-/home/mmr23/informatica/ed/practicas/p2/check_brackets/test_check_brackets.cpp
+/mnt/datos/informatica/ed/practicas/p2/check_brackets/test_check_brackets.cpp
 exception
 -
 iostream
@@ -22,5 +20,5 @@ fstream
 string
 -
 stack.hpp
-/home/mmr23/informatica/ed/practicas/p2/check_brackets/stack.hpp
+/mnt/datos/informatica/ed/practicas/p2/check_brackets/stack.hpp
 

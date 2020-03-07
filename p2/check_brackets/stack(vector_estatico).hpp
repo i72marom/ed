@@ -18,9 +18,9 @@ class Stack
 	/** @brief Create an empty Stack.
 	 * @post is_empty()
 	 */
-	Stack () {
+	Stack ()
+	{
 		//TODO
-		head_ = NULL;
 		assert(this->is_empty());
 	}
 
@@ -28,7 +28,6 @@ class Stack
 	~Stack()
 	{
 		//TODO
-		delete head_;
 	}
 
 	/** @}*/
@@ -41,7 +40,7 @@ class Stack
 	bool is_empty () const
 	{
 		//TODO
-		return (head_ == NULL);
+		return (index_top_ == -1);
 	}
 
 	/** @brief get the top item.
@@ -51,7 +50,7 @@ class Stack
 	{
 		//TODO
 		assert(!this->is_empty());
-		return head_->value;
+		return v_[index_top_];
 	}
 
 	/**@}*/
@@ -66,17 +65,7 @@ class Stack
 	void push(const T& new_it)
 	{
 		//TODO
-		nodo *new_nd;
-		new_nd = new nodo;
-		new_nd->value = new_it;
-		if (this->is_empty()) {
-			head_ = new_nd;
-		} else {
-			new_nd->next = head_;
-			head_ = new_nd;
-		}
-		//delete new_nd;
-		assert(top()==new_it);
+		v_[++index_top_] = new_it;
 	}
 
 	/** Remove the top item.
@@ -86,9 +75,7 @@ class Stack
 	{
 		//TODO
 		assert(!this->is_empty());
-		nodo *aux = head_;
-		head_ = head_->next;
-		delete aux;
+		index_top_--;
 	}
 
 	/** @} */
@@ -112,11 +99,8 @@ private:
 protected:
 
 	//TODO
-	struct nodo {
-		T value;
-		nodo *next;
-	};
-
-	nodo *head_;};
+	T v_[100];
+	int index_top_ = -1;
+};
 
 #endif
