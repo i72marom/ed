@@ -69,8 +69,12 @@ main(int argc, const char* argv[])
 					/* process a closing bracket. */
 
 					//TODO
-					if (brakets.is_empty()) unbalanced_found = true;
-					else if (brakets.top().match_with(next_c)) brakets.pop();
+					if (brakets.is_empty() || !brakets.top().match_with(next_c)) {
+						unbalanced_found = true;
+						brakets.push(Bracket(next_c, pos));
+					}
+
+					else brakets.pop();
 				}
 			}
 		}
@@ -78,8 +82,8 @@ main(int argc, const char* argv[])
 		/* write the result. */
 
 		//TODO
-		if (!unbalanced_found) std::cout << pos << std::endl;
-		else std::cout << "Success" << std::endl;
+		if (brakets.is_empty()) std::cout << "Success" << std::endl;
+		else std::cout << brakets.top().pos() << std::endl;
 
 	}
 	catch(std::runtime_error &e)

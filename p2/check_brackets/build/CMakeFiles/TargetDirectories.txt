@@ -1,4 +1,0 @@
-/mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles/rebuild_cache.dir
-/mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles/test_stack.dir
-/mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles/edit_cache.dir
-/mnt/datos/informatica/ed/practicas/p2/check_brackets/build/CMakeFiles/test_check_brackets.dir
