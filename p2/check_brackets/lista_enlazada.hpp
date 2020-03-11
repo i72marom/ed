@@ -73,12 +73,8 @@ class Stack
 		nodo *new_nd;
 		new_nd = new nodo;
 		new_nd->value = new_it;
-		if (this->is_empty()) {
-			head_ = new_nd;
-		} else {
-			new_nd->next = head_;
-			head_ = new_nd;
-		}
+		new_nd->next = head_;
+		head_ = new_nd;
 		// DONE
 	}
 
