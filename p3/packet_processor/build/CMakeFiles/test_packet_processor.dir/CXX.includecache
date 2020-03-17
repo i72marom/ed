@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/datos/informatica/ed/practicas/p3/packet_processor/packet_processor.cpp
+packet_processor.hpp
+/mnt/datos/informatica/ed/practicas/p3/packet_processor/packet_processor.hpp
+
+/mnt/datos/informatica/ed/practicas/p3/packet_processor/packet_processor.hpp
+iostream
+-
+vector
+-
+queue.hpp
+/mnt/datos/informatica/ed/practicas/p3/packet_processor/queue.hpp
+
+/mnt/datos/informatica/ed/practicas/p3/packet_processor/queue.hpp
+cassert
+-
+cstdlib
+-
+stack
+-
+
+/mnt/datos/informatica/ed/practicas/p3/packet_processor/test_packet_processor.cpp
+exception
+-
+iostream
+-
+fstream
+-
+string
+-
+vector
+-
+packet_processor.hpp
+/mnt/datos/informatica/ed/practicas/p3/packet_processor/packet_processor.hpp
+
