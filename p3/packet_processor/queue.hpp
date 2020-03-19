@@ -24,12 +24,14 @@ class Queue
 		Queue () : head_(NULL), tail_(NULL) {
 			//TODO
 			assert(this->is_empty());
+			// DONE
 		}
 
 		/** @brief Destroy a Queue.**/
 		~Queue() {
 			//TODO
 			while (!this->is_empty()) this->deque();
+			// DONE
 		}
 
 		/** @}*/

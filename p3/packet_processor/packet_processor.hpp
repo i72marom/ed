@@ -11,16 +11,16 @@
  * how much time is spent to be processed.
 */
 struct Packet {
-    Packet():
-        arrival_time(0), process_time(0)
-    {}
-    Packet(int arrival_time, int process_time):
-        arrival_time(arrival_time),
-        process_time(process_time)
-    {}
+	Packet():
+		arrival_time(0), process_time(0)
+	{}
+	Packet(int arrival_time, int process_time):
+		arrival_time(arrival_time),
+		process_time(process_time)
+	{}
 
-    int arrival_time;
-    int process_time;
+	int arrival_time;
+	int process_time;
 };
 
 /** @brief Models the response to a incomming packet.
@@ -29,38 +29,40 @@ struct Packet {
 */
 struct Response
 {
-    Response(bool dropped, int start_time):
-        dropped(dropped),
-        start_time(start_time)
-    {}
+	Response(bool dropped, int start_time):
+		dropped(dropped),
+		start_time(start_time)
+	{}
 
-    bool dropped;
-    int start_time;
+	bool dropped;
+	int start_time;
 };
 
 /** @brief Models the packet processor.*/
 class PacketProcessor
 {
 public:
-    /**
-     * @brief Create a packet processor with a queue for at most size packets.
-     */
-    PacketProcessor(size_t size);
+	/**
+	* @brief Create a packet processor with a queue for at most size packets.
+	*/
+	PacketProcessor(size_t size);
 
-    /**
-     * @brief generate the response when a packet arrives.
-     */
-    Response process(const Packet &packet);
+	/**
+	* @brief generate the response when a packet arrives.
+	*/
+	Response process(const Packet &packet);
 
 protected:
 
 	//TODO
-
+	Queue <int> buffer_; // almacena el tiempo de ---- de cada paquete
+	size_t size_; // numero de paquetes que almacena el buffer
+	// DONE
 };
 
 /** @brief process the packets and generate a response for each of them.*/
 std::vector <Response> process_packets(const std::vector <Packet> &packets,
-                PacketProcessor& p);
+				PacketProcessor& p);
 
 /** @brief print the processing start times for the packets.*/
 std::ostream& write_responses(std::ostream& out, const std::vector <Response> &responses);
