@@ -28,15 +28,39 @@ PacketProcessor::process(const Packet &packet)
 	// el tiempo de finalización.
 	// 
 	// en este caso se encola el tiempo de finalizacion
-
-	while (!buffer_.is_empty() && (packet.arrival_time >= buffer_.front())) buffer_.deque();
+	if (!buffer_.is_empty() && (packet.arrival_time >= buffer_.front())) buffer_.deque();
 	if (buffer_.size() == size_) return Response(true, 0);
-	else if (buffer_.is_empty()) return Response(false, packet.arrival_time);
-	else {
-		int back = buffer_.back();
-		buffer_.enque(buffer_.back() + packet.process_time);
-		return Response(false, back);
+	if (buffer_.is_empty()) {
+		buffer_.enque(packet.arrival_time + packet.process_time);
+		return Response(false, packet.arrival_time);
 	}
+
+	int back = buffer_.back();
+	buffer_.enque(buffer_.back() + packet.process_time);
+	return Response(false, back);
+
+  /*  // 1
+    if (!this->PacketProcessor_.is_empty())
+        if (packet.arrival_time >= this->PacketProcessor_.front())
+            this->PacketProcessor_.deque();
+
+    // 2
+    if (this->PacketProcessor_.size() == this->size_)
+        return Response(true, 0);
+
+    // 3.1
+    if (this->PacketProcessor_.is_empty())
+    {
+        this->PacketProcessor_.enque(packet.arrival_time + packet.process_time);
+        return Response(false, packet.arrival_time);
+    }
+
+    // 3.2
+    int old_back = this->PacketProcessor_.back();
+    int time_work = this->PacketProcessor_.back() + packet.process_time;
+    this->PacketProcessor_.enque(time_work);
+    return Response(false, old_back);
+    //DONE*/
 }
 
 

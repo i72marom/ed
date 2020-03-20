@@ -30,7 +30,7 @@ class Queue
 		/** @brief Destroy a Queue.**/
 		~Queue() {
 			//TODO
-			while (!this->is_empty()) this->deque();
+			//while (!this->is_empty()) this->deque();
 			// DONE
 		}
 
@@ -50,14 +50,8 @@ class Queue
 		/** @brief Gets the number of items in the queue.*/
 		size_t size() const {
 			//TODO
-			int cont = 0;
-			nodo *aux;
-			aux = new nodo;
-			aux = head_;
-
-			while ((aux = aux->next) != NULL) cont++;
-
-			return cont;
+			
+			return size_;
 
 			// DONE
 		}
@@ -109,6 +103,9 @@ class Queue
 			// por tanto, al crearla apunta al nuevo elemento
 			if (head_ == NULL) head_ = new_nd;
 
+			// aumenta el tamaño de la cola
+			size_++;
+
 			assert(!this->is_empty());
 
 			// DONE
@@ -128,7 +125,10 @@ class Queue
 			// para despues liberar memoria con delete
 			nodo *aux = head_;
 			head_ = head_->next;
-			delete aux;
+			//delete aux;
+
+			// disminuye el tamaño de la cola
+			size_--;
 
 			// DONE
 		}
@@ -160,6 +160,7 @@ class Queue
 
 		nodo *head_;
 		nodo *tail_;
+		size_t size_ = 0;
 		// DONE
 };
 
