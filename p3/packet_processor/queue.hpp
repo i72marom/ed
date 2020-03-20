@@ -3,8 +3,7 @@
 
 #include <cassert>
 #include <cstdlib>
-#include <stack>
-
+#include <list>
 
 /**
  * @brief ADT Queue.
@@ -21,7 +20,7 @@ class Queue
 		/** @brief Create an empty Queue.
 		 * @post is_empty()
 		 */
-		Queue () : head_(NULL), tail_(NULL) {
+		Queue () {
 			//TODO
 			assert(this->is_empty());
 			// DONE
@@ -30,7 +29,7 @@ class Queue
 		/** @brief Destroy a Queue.**/
 		~Queue() {
 			//TODO
-			//while (!this->is_empty()) this->deque();
+			queue_.clear();
 			// DONE
 		}
 
@@ -43,7 +42,7 @@ class Queue
 		/** @brief is the list empty?.*/
 		bool is_empty () const {
 			//TODO
-			return (head_ == NULL);
+			return queue_.empty();
 			// DONE
 		}
 
@@ -51,7 +50,7 @@ class Queue
 		size_t size() const {
 			//TODO
 			
-			return size_;
+			return queue_.size();
 
 			// DONE
 		}
@@ -61,7 +60,7 @@ class Queue
 		 */
 		const T& front() const {
 			//TODO
-			return head_->value;
+			return queue_.front();
 			// DONE
 		}
 
@@ -71,7 +70,7 @@ class Queue
 		const T& back() const {
 			//TODO
 			assert(!this->is_empty());
-			return tail_->value;
+			return queue_.back();
 			// DONE
 		}
 
@@ -87,24 +86,7 @@ class Queue
 		void enque(const T& new_it) {
 			//TODO
 
-			// creo un nuevo nodo auxiliar para introducir 
-			// el nuevo elemento en la cola
-			nodo *new_nd;
-			new_nd = new nodo;
-			new_nd->value = new_it;
-
-			// si la cola ya esta creada, el elemento siguiente
-			// al ultimo elemento actual ahora apunta al nuevo elemento
-			// y el ultimo elemento ahoraes ese nuevo elemento
-			if (tail_ != NULL) tail_->next = new_nd;
-			tail_ = new_nd;
-
-			// si la cola no esta creada, head_ apunta a NULL
-			// por tanto, al crearla apunta al nuevo elemento
-			if (head_ == NULL) head_ = new_nd;
-
-			// aumenta el tamaño de la cola
-			size_++;
+			queue_.push_back(new_it);
 
 			assert(!this->is_empty());
 
@@ -119,16 +101,7 @@ class Queue
 			//TODO
 			assert(!this->is_empty());
 
-			// para eliminar el primer elemento de la lista
-			// necesitamos que el puntero apunte a su siguiente elemento
-			// el primer elemento lo guardamos en un puntero auxiliar 
-			// para despues liberar memoria con delete
-			nodo *aux = head_;
-			head_ = head_->next;
-			//delete aux;
-
-			// disminuye el tamaño de la cola
-			size_--;
+			queue_.pop_front();
 
 			// DONE
 		}
@@ -153,14 +126,7 @@ class Queue
 
 	protected:
 		//TODO
-		struct nodo {
-			T value;
-			nodo *next;
-		};
-
-		nodo *head_;
-		nodo *tail_;
-		size_t size_ = 0;
+		std::list <T> queue_;
 		// DONE
 };
 
