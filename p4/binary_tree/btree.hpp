@@ -297,9 +297,9 @@ fold_btnode (std::ostream& out, typename BTNode<T>::Ref const& node)
 		fold_btnode <T> (out, node.get()->right());
 	}
 
-	// [15 : [7 : [3 : [] : []] : [11 : [9 : [] : []] : [14 : [] : []]]]: [20 : [] : [30 : [] : []]]]
-
 	std::cout << "]";
+
+	// DONE
 
 	return out;
 }

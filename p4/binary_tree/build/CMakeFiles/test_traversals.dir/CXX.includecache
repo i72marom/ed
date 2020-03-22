@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/datos/informatica/ed/practicas/p4/binary_tree/btree.hpp
+cassert
+-
+exception
+-
+memory
+-
+iostream
+-
+
+/mnt/datos/informatica/ed/practicas/p4/binary_tree/btree_utils.hpp
+cassert
+-
+exception
+-
+memory
+-
+iostream
+-
+queue
+-
+btree.hpp
+/mnt/datos/informatica/ed/practicas/p4/binary_tree/btree.hpp
+
+/mnt/datos/informatica/ed/practicas/p4/binary_tree/test_traversals.cpp
+iostream
+-
+fstream
+-
+sstream
+-
+string
+-
+exception
+-
+btree_utils.hpp
+/mnt/datos/informatica/ed/practicas/p4/binary_tree/btree_utils.hpp
+
