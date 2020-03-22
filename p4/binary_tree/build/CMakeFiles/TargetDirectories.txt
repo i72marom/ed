@@ -1,4 +1,0 @@
-/mnt/datos/informatica/ed/practicas/p4/binary_tree/build/CMakeFiles/rebuild_cache.dir
-/mnt/datos/informatica/ed/practicas/p4/binary_tree/build/CMakeFiles/test_btree.dir
-/mnt/datos/informatica/ed/practicas/p4/binary_tree/build/CMakeFiles/edit_cache.dir
-/mnt/datos/informatica/ed/practicas/p4/binary_tree/build/CMakeFiles/test_traversals.dir
