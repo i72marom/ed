@@ -1,0 +1,14 @@
+#include <iostream>
+
+#include "avltree.hpp"
+
+int main() {
+	AVLTree<int> tree;
+	tree.insert(10);
+	tree.insert(5);
+	tree.insert(11);
+	tree.insert(20);
+	if (tree.search(10)) std::cout << tree.current() << std::endl;
+	tree.remove();
+	if (tree.search(10)) std::cout << tree.current() << std::endl;
+}

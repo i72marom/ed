@@ -61,8 +61,8 @@ main(int argc, const char* argv[])
 
         for (size_t i=0; i<remove_values.size(); i++)
         {
-            //assert(tree.search(remove_values[i]));
-            //tree.remove();
+            assert(tree.search(remove_values[i]));
+            tree.remove();
         }
         std::cout << tree << std::endl;
     }

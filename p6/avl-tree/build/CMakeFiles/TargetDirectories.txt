@@ -1,4 +1,0 @@
-/mnt/datos/informatica/ed/practicas/p6/avl-tree/build/CMakeFiles/edit_cache.dir
-/mnt/datos/informatica/ed/practicas/p6/avl-tree/build/CMakeFiles/rebuild_cache.dir
-/mnt/datos/informatica/ed/practicas/p6/avl-tree/build/CMakeFiles/test_bstree.dir
-/mnt/datos/informatica/ed/practicas/p6/avl-tree/build/CMakeFiles/test_avltree.dir

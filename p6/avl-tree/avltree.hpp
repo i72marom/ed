@@ -326,14 +326,35 @@ class AVLTree
 
 			//TODO
 			
-			current_ = root();
+			/*current_ = root();
 
-			while (current_exists() && !found) {
+			while (current_exists() && found == false) {
 				if (current() == k) found = true;
-
-				if (current() > k) current_ = current_->right();
+				else if (current() > k) current_ = current_->right();
 				else current_ = current_->left();
+			}*/
+
+			if (!this->is_empty())  {
+				current_ = root();
+
+				while (current() != k) {
+					if (current() < k) {
+						if (current_->has_right()) current_ = current_->right();
+						else {
+							current_ = nullptr;
+							break;
+						}
+					} else {
+						if (current_->has_left()) current_ = current_->left();
+						else {
+							current_ = nullptr;
+							break;
+						}
+					}
+				}
 			}
+
+			if (current_exists()) found = true;
 
 			// DONE
 
@@ -379,10 +400,16 @@ class AVLTree
 				while (current() != k) {
 					if (current() < k) {
 						if (current_->has_right()) current_ = current_->right();
-						else current_->set_right(aux);
+						else {
+							current_->set_right(aux);
+							current_->right()->set_parent(current_);
+						}
 					} else if (current() > k) {
 						if (current_->has_left()) current_ = current_->left();
-						else current_->set_left(aux);
+						else {
+							current_->set_left(aux);
+							current_->left()->set_parent(current_);
+						}
 					}
 				}
 			}
@@ -417,10 +444,12 @@ class AVLTree
 			bool replace_with_subtree = true;
 			typename AVLTNode<T>::Ref subtree;
 
-
 			//TODO: first delivery
 			//Check if there are one subtree (may be empty) to replace node to be removed.
-
+			if (!current_->has_left() && !current_->has_right()) subtree = nullptr;
+			else if (!current_->has_right()) subtree = current_->left();
+			else if (!current_->has_left()) subtree = current_->right();
+			else replace_with_subtree = false;
 
 
 			////////
@@ -430,10 +459,23 @@ class AVLTree
 				//TODO: first delivery
 				//Replace the node with the subtree.
 
+				parent_ = current_->parent();
+
+				if (current_ == _root) _root = subtree;
+				else if (parent_->has_left() && parent_->left() == current_) {
+					parent_->set_left(subtree);
+					if (parent_->has_left()) parent_->left()->set_parent(parent_);
+				}
+				else {
+					parent_->set_right(subtree);
+					if (parent_->has_right()) parent_->right()->set_parent(parent_);
+				}
+
+				current_ = nullptr;
 
 				/////////////
 
-				make_balanced();
+				//make_balanced();
 
 				//check invariants.
 				assert(is_a_binary_search_subtree(root()));
@@ -472,9 +514,17 @@ class AVLTree
 		/**
 		 * @brief find the sucessor in order of current.
 		 */
-		void find_inorder_sucessor()
-		{
+		void find_inorder_sucessor() {
 			//TODO: first delivery.
+			//if (node.get()->has_left()) infix_process <T, Processor> (node.get()->left(), p);
+			//std::cout << node.get()->item() << " ";
+			//if (node.get()->has_right()) infix_process <T, Processor> (node.get()->right(), p);
+
+			current_ = current_->right();
+
+			while (current_->has_left()) {
+				current_ = current_->left();
+			}
 		}
 
 
