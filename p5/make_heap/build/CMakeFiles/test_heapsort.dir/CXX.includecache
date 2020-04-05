@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/datos/informatica/ed/practicas/p5/make_heap/heap.hpp
+cassert
+-
+iostream
+-
+functional
+-
+memory
+-
+algorithm
+-
+
+/mnt/datos/informatica/ed/practicas/p5/make_heap/heapsort.hpp
+vector
+-
+heap.hpp
+/mnt/datos/informatica/ed/practicas/p5/make_heap/heap.hpp
+
+/mnt/datos/informatica/ed/practicas/p5/make_heap/test_heapsort.cpp
+iostream
+-
+fstream
+-
+sstream
+-
+string
+-
+exception
+-
+vector
+-
+heap.hpp
+/mnt/datos/informatica/ed/practicas/p5/make_heap/heap.hpp
+heapsort.hpp
+/mnt/datos/informatica/ed/practicas/p5/make_heap/heapsort.hpp
+

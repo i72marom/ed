@@ -1,0 +1,5 @@
+/mnt/datos/informatica/ed/practicas/p5/make_heap/build/CMakeFiles/rebuild_cache.dir
+/mnt/datos/informatica/ed/practicas/p5/make_heap/build/CMakeFiles/edit_cache.dir
+/mnt/datos/informatica/ed/practicas/p5/make_heap/build/CMakeFiles/test_heapsort.dir
+/mnt/datos/informatica/ed/practicas/p5/make_heap/build/CMakeFiles/test_heapmin.dir
+/mnt/datos/informatica/ed/practicas/p5/make_heap/build/CMakeFiles/test_heapmax.dir
