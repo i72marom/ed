@@ -51,10 +51,17 @@ class AVLTNode {
 		}
 
 		/** @brief Compute the balance factor of the node.*/
-		int balance_factor() const
-		{
-				//TODO (second send delivery)
-				return left()->height() - right()->height();
+		int balance_factor() const {
+			//TODO (second send delivery)
+
+			int r_heiht = 0, l_height = 0;
+			
+			if (this->has_right()) r_heiht = right()->height();
+			if (this->has_left()) l_height = left()->height();
+			
+			return r_heiht - l_height;
+
+			//DONE (second delivery)
 		}
 
 		/** @brief Has it a parent?*/
@@ -162,15 +169,22 @@ class AVLTNode {
 		void compute_height() {
 			//TODO (second delivery)
 			height_ = 0;
-			int right_height = -1,left_height = -1;
-
-			if (this->has_left()) left_height = this->left()->height();
-			if (this->has_right()) right_height = this->right()->height();
 			
-			height_ = std::max(left_height, right_height) + 1;
+			if (!this->has_left() && !this->has_right()) height_ = 1;
+			else {
+				int right_height = 0,left_height = 0;
 
-			// recalcular la altura de los arboles superiores
-			// if (this->has_parent()) this->parent()->compute_height();
+				if (this->has_left()) {
+					this->left()->compute_height();
+					left_height = this->left()->height();
+				}
+				if (this->has_right()) {
+					this->right()->compute_height();
+					right_height = this->right()->height();
+				}
+				
+				height_ = std::max(left_height, right_height) + 1;
+			}
 
 			//DONE (second delivery)
 		}
@@ -349,13 +363,19 @@ class AVLTree
 
 				while (current() != k) {
 					if (current() < k) {
-						if (current_->has_right()) current_ = current_->right();
+						if (current_->has_right()) {
+							parent_ = current_;
+							current_ = current_->right();
+						}
 						else {
 							current_ = nullptr;
 							break;
 						}
 					} else {
-						if (current_->has_left()) current_ = current_->left();
+						if (current_->has_left()) {
+							parent_ = current_;
+							current_ = current_->left();
+						}
 						else {
 							current_ = nullptr;
 							break;
@@ -413,16 +433,21 @@ class AVLTree
 						else {
 							current_->set_right(aux);
 							current_->right()->set_parent(current_);
+							parent_ = current_;
+							current_ = current_->right();
 						}
 					} else if (current() > k) {
 						if (current_->has_left()) current_ = current_->left();
 						else {
 							current_->set_left(aux);
 							current_->left()->set_parent(current_);
+							parent_ = current_;
+							current_ = current_->left();
 						}
 					}
 				}
 			}
+
 
 			// DONE
 
@@ -484,8 +509,7 @@ class AVLTree
 				current_ = nullptr;
 
 				/////////////
-
-				//make_balanced();
+				make_balanced();
 
 				//check invariants.
 				assert(is_a_binary_search_subtree(root()));
@@ -526,9 +550,6 @@ class AVLTree
 		 */
 		void find_inorder_sucessor() {
 			//TODO: first delivery.
-			//if (node.get()->has_left()) infix_process <T, Processor> (node.get()->left(), p);
-			//std::cout << node.get()->item() << " ";
-			//if (node.get()->has_right()) infix_process <T, Processor> (node.get()->right(), p);
 
 			current_ = current_->right();
 
@@ -550,18 +571,31 @@ class AVLTree
 			//First update grand parent link.
 			//If there is not grand parent, the child will be
 			//the new root of the tree.
+			
 
-
-
+			if (grand_parent == nullptr) _root = child;
+			else {
+				if (grand_parent->has_right() && grand_parent->right() == parent) grand_parent->set_right(child);
+				else if (grand_parent->has_left() && grand_parent->left() == parent) grand_parent->set_left(child);
+			}
+			
+			child->set_parent(grand_parent);
+				
 			//TODO: second delivery.
 			//second update child<->parent links.
 
-
+			auto tmp = child->right(), tmp2 = child;
+			if (tmp != nullptr) tmp->set_parent(parent);
+			tmp2->set_right(parent);
+			parent->set_parent(tmp2);
+			parent->set_left(tmp);
 
 			//TODO: second delivery.
 			//Update heigths for parent, child and grandparent if there is.
 
-
+			parent->compute_height();
+			tmp2->compute_height();
+			if (grand_parent != nullptr) grand_parent->compute_height();
 		}
 
 		/**
@@ -578,16 +612,29 @@ class AVLTree
 			//the new root of the tree.
 
 
-
+			if (grand_parent == nullptr) _root = child;
+			else {
+				if (grand_parent->has_right() && grand_parent->right() == parent) grand_parent->set_right(child);
+				else if (grand_parent->has_left() && grand_parent->left() == parent) grand_parent->set_left(child);
+			}
+			
+			child->set_parent(grand_parent);
+				
 			//TODO: second delivery.
 			//second update child<->parent links.
 
-
+			auto tmp = child->left(), tmp2 = child;
+			if (tmp != nullptr) tmp->set_parent(parent);
+			tmp2->set_left(parent);
+			parent->set_parent(tmp2);
+			parent->set_right(tmp);
 
 			//TODO: second delivery.
 			//Update heigths for parent, child and grandparent if there is.
-
-
+			
+			parent->compute_height();
+			tmp2->compute_height();
+			if (grand_parent != nullptr) grand_parent->compute_height();
 		}
 
 		/**
@@ -619,14 +666,14 @@ class AVLTree
 						//TODO: second delivery
 						//We have a Case 1.
 						//left-left unbalance.
-
+						rotate_left(child, parent_, grand_parent);
 					}
 					else
 					{
 						//TODO: second delivery
 						//We have a Case 3.
 						//left-right unbalance
-
+						rotate_right(child->right(), child, parent_);
 					}
 				}
 				else if (bf > 1)
@@ -645,15 +692,14 @@ class AVLTree
 						//We have a Case 2.
 						//right-right unbalanced.
 
-
+						rotate_right(child, parent_, grand_parent);
 					}
 					else
 					{
 						//TODO: second delivery
 						//We have a Case 4.
 						//right-left unbalanced.
-
-
+						rotate_left(child->left(), child, parent_);
 					}
 				}
 				else
@@ -695,16 +741,20 @@ class AVLTree
 		 * @brief check the balanced tree invariant.
 		 * @param node is the subtree's root.
 		 * @return true if the subtree with node as root is balanced.
-		 */
+		 */		
 		bool is_a_balanced_subtree(typename AVLTNode<T>::Ref const& node) const {
 			//TODO: second delivery
 			
-			if (abs(node->left()->balance_factor()) > 1 || 
-				abs(node->right()->balance_factor()) > 1 || 
-				abs(node->balance_factor()) > 1)
-				return false;
+			if (node != nullptr) {
+				if (std::abs(node->balance_factor()) > 1 && 
+					is_a_balanced_subtree(node->left()) && 
+					is_a_balanced_subtree(node->right())) 
+					return false;
+			}
 
 			return true;
+			
+			//DONE (second delivery)
 		}
 
 	typename AVLTNode<T>::Ref _root;
