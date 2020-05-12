@@ -133,9 +133,47 @@ std::shared_ptr<WGraph<T>> create_wgraph(std::istream &in) noexcept(false)
     //Renember if the graph is non directed, each edge u--v generate two
     //directed edges u-->v and v-->u.
     //If the input format is wrong, the throw std::runtime_error("Wrong graph").
+    std::string is_directed;
+    in >> is_directed;
+    if (!in) std::runtime_error("Wrong graph");
+    
+    // obtenemos el numero de nodos
+    size_t n_nodes;
+    in >> n_nodes;
+    if (!in) std::runtime_error("Wrong graph");
 
+    // creamos el grafo
+    graph = std::shared_ptr<WGraph<T>>(new WGraph<T>(n_nodes));
+
+    // añadimos los nodos al grafo
+    for(size_t i=0; i<n_nodes; ++i) {
+        T item;
+        in >> item;
+        
+        if (!in) std::runtime_error("Wrong graph");
+        
+        graph->add_node(item);
+    }
+
+    // añadimos las conexiones en funcion de 
+    // si el grafo es dirigido o no dirigido
+    size_t n_edges;
+    in >> n_edges;
+    
+    for (size_t i=0;i<n_edges; ++i) {
+        T u, v;
+        float w;
+        
+        in >> u >> v >> w;
+        
+        graph->set_weight(graph->find(u), graph->find(v), w);
+        if (is_directed == "NON_DIRECTED") 
+            graph->set_weight(graph->find(v), graph->find(u), w);
+    }
 
     return graph;
+
+    // DONE
 }
 
 #endif //__GRAPH_UTILS_HPP__

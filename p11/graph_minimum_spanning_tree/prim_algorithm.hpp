@@ -23,41 +23,72 @@ template <class T>
 float
 prim_algorithm(WGraph<T>& g, std::vector<typename WGraph<T>::EdgeRef>& mst) noexcept(false)
 {
-    assert(g.has_current_node());
+	assert(g.has_current_node());
 
-    //TODO: Declare the U, V and C vectors according to the algorithm (see class documentation.)
+	//TODO: Declare the U, V and C vectors according to the algorithm (see class documentation.)
 
-    float total_distance = 0.0;
-    auto u = g.current_node();
+	float total_distance = 0.0;
+	auto u = g.current_node();
+	typename WGraph<T>::NodeRef v;
+	float distance;
+	int j;
 
-    //TODO: Add the start node to the Minimum Spanning Tree (mst).
-
-
-    //ITERATE FOR the N-1 edges.
-    for (size_t i=1; i<g.size(); ++i)
-    {
-        //TODO: Update vector of best distances regarding the last vertex added u to the mst.
-
-
-        //TODO: Find the next vertex to be added to the mst.
-        //Remeber: if a tie exists, select the vertex with lesser label.
-        //You can use std::numeric_limits<float>::infinity() if it is necessary.
+	std::vector <std::pair <typename WGraph<T>::NodeRef, bool>> 
+	U(g.capacity(), std::pair<typename WGraph<T>::NodeRef, bool>(nullptr, false));
+	std::vector <typename WGraph<T>::NodeRef> V(g.capacity(), nullptr);
+	std::vector <float> C(g.capacity(), std::numeric_limits<float>::infinity());
 
 
-        //TODO: check if a valid condition is met for a connected graph.
-        //Suggestion: What about the minimum distance found?
-        if (true /*Replace with you condition*/)
-            throw std::runtime_error("It is a non-connected graph.");
+	//TODO: Add the start node to the Minimum Spanning Tree (mst).
+	U[u->label()].first = u;
+	U[u->label()].second = true;
 
-        //TODO:Set vertex found as beloning to the mst.
+	//ITERATE FOR the N-1 edges.
+	for (size_t e=1; e<g.size(); ++e) {
+		//TODO: Update vector of best distances regarding the last vertex added u to the mst.
+		while (g.has_current_edge()) {
+			if (C[g.current_edge()->other(u)->label()] > g.current_weight()) {
+				U[g.current_edge()->other(u)->label()].first = g.current_edge()->other(u);
+				V[g.current_edge()->other(u)->label()] = u;
+				C[g.current_edge()->other(u)->label()] = g.current_weight();
+			}
 
-        //TODO:Add the edge found to the mst vector.
+			g.goto_next_edge();
+		}
 
-        //TODO: update the total distance of the mst with the new edge's weight.
+		//TODO: Find the next vertex to be added to the mst.
+		//Remeber: if a tie exists, select the vertex with lesser label.
+		//You can use std::numeric_limits<float>::infinity() if it is necessary.
+		j = 0;
+		distance = std::numeric_limits<float>::infinity();
+		
+		for (int i = 0; i < C.size(); ++i) {
+			if (distance > C[i] && !U[i].second) {
+				distance = C[i];
+				j = i;
+			}
+		}
 
-    }
+		//TODO: check if a valid condition is met for a connected graph.
+		//Suggestion: What about the minimum distance found?
+		if (total_distance == std::numeric_limits<float>::infinity()) 
+			throw std::runtime_error("It is a non-connected graph.");
 
-    return total_distance;
+		//TODO:Set vertex found as beloning to the mst.
+
+		//TODO:Add the edge found to the mst vector.
+		mst.push_back(GraphEdge<T, float>::make(U[j].first, V[j], C[j]));
+		U[j].second = true;
+		C[j] = std::numeric_limits<float>::infinity();
+		V[j] = nullptr;
+		u = U[j].first;
+		g.goto_node(u);
+
+		//TODO: update the total distance of the mst with the new edge's weight.
+		total_distance += distance;
+	}
+
+	return total_distance;
 }
 
 
