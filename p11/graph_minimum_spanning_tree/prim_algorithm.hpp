@@ -30,27 +30,27 @@ prim_algorithm(WGraph<T>& g, std::vector<typename WGraph<T>::EdgeRef>& mst) noex
 	float total_distance = 0.0;
 	auto u = g.current_node();
 	typename WGraph<T>::NodeRef v;
-	float distance;
-	int j;
 
-	std::vector <std::pair <typename WGraph<T>::NodeRef, bool>> 
-	U(g.capacity(), std::pair<typename WGraph<T>::NodeRef, bool>(nullptr, false));
+	std::vector <typename WGraph<T>::NodeRef> 
+	U(g.capacity(), typename WGraph<T>::NodeRef(nullptr));
 	std::vector <typename WGraph<T>::NodeRef> V(g.capacity(), nullptr);
 	std::vector <float> C(g.capacity(), std::numeric_limits<float>::infinity());
 
 
 	//TODO: Add the start node to the Minimum Spanning Tree (mst).
-	U[u->label()].first = u;
-	U[u->label()].second = true;
+	U[u->label()] = u;
+	U[u->label()]->set_visited(true);
 
 	//ITERATE FOR the N-1 edges.
 	for (size_t e=1; e<g.size(); ++e) {
 		//TODO: Update vector of best distances regarding the last vertex added u to the mst.
 		while (g.has_current_edge()) {
-			if (C[g.current_edge()->other(u)->label()] > g.current_weight()) {
-				U[g.current_edge()->other(u)->label()].first = g.current_edge()->other(u);
-				V[g.current_edge()->other(u)->label()] = u;
-				C[g.current_edge()->other(u)->label()] = g.current_weight();
+			auto other = g.current_edge()->other(u);
+
+			if (C[other->label()] > g.current_weight() && !other->is_visited()) {
+				U[other->label()] = other;
+				V[other->label()] = u;
+				C[other->label()] = g.current_weight();
 			}
 
 			g.goto_next_edge();
@@ -59,14 +59,11 @@ prim_algorithm(WGraph<T>& g, std::vector<typename WGraph<T>::EdgeRef>& mst) noex
 		//TODO: Find the next vertex to be added to the mst.
 		//Remeber: if a tie exists, select the vertex with lesser label.
 		//You can use std::numeric_limits<float>::infinity() if it is necessary.
-		j = 0;
-		distance = std::numeric_limits<float>::infinity();
+		//j = 0;
+		C[u->label()] = std::numeric_limits<float>::infinity();
 		
 		for (int i = 0; i < C.size(); ++i) {
-			if (distance > C[i] && !U[i].second) {
-				distance = C[i];
-				j = i;
-			}
+			if (C[u->label()] > C[i]) u = U[i];
 		}
 
 		//TODO: check if a valid condition is met for a connected graph.
@@ -74,18 +71,15 @@ prim_algorithm(WGraph<T>& g, std::vector<typename WGraph<T>::EdgeRef>& mst) noex
 		if (total_distance == std::numeric_limits<float>::infinity()) 
 			throw std::runtime_error("It is a non-connected graph.");
 
-		//TODO:Set vertex found as beloning to the mst.
-
 		//TODO:Add the edge found to the mst vector.
-		mst.push_back(GraphEdge<T, float>::make(U[j].first, V[j], C[j]));
-		U[j].second = true;
-		C[j] = std::numeric_limits<float>::infinity();
-		V[j] = nullptr;
-		u = U[j].first;
+		mst.push_back(GraphEdge<T, float>::make(U[u->label()], V[u->label()], C[u->label()]));
+		
+		U[u->label()]->set_visited(true);
+		V[u->label()] = nullptr;
 		g.goto_node(u);
 
 		//TODO: update the total distance of the mst with the new edge's weight.
-		total_distance += distance;
+		total_distance += C[u->label()];
 	}
 
 	return total_distance;
