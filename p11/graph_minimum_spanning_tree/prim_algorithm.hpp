@@ -29,10 +29,8 @@ prim_algorithm(WGraph<T>& g, std::vector<typename WGraph<T>::EdgeRef>& mst) noex
 
 	float total_distance = 0.0;
 	auto u = g.current_node();
-	typename WGraph<T>::NodeRef v;
 
-	std::vector <typename WGraph<T>::NodeRef> 
-	U(g.capacity(), typename WGraph<T>::NodeRef(nullptr));
+	std::vector <typename WGraph<T>::NodeRef> U(g.capacity(), nullptr);
 	std::vector <typename WGraph<T>::NodeRef> V(g.capacity(), nullptr);
 	std::vector <float> C(g.capacity(), std::numeric_limits<float>::infinity());
 
@@ -62,9 +60,8 @@ prim_algorithm(WGraph<T>& g, std::vector<typename WGraph<T>::EdgeRef>& mst) noex
 		//j = 0;
 		C[u->label()] = std::numeric_limits<float>::infinity();
 		
-		for (int i = 0; i < C.size(); ++i) {
+		for (int i = 0; i < C.size(); ++i)
 			if (C[u->label()] > C[i]) u = U[i];
-		}
 
 		//TODO: check if a valid condition is met for a connected graph.
 		//Suggestion: What about the minimum distance found?
