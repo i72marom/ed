@@ -43,15 +43,6 @@ void compute_list_of_edges(WGraph<T>& g, std::vector<typename WGraph<T>::EdgeRef
 template<class T>
 struct KruskalEdgeCompare {
 	bool operator()(const typename WGraph<T>::EdgeRef & a, const typename WGraph<T>::EdgeRef & b) const {
-		/*if (a->item() < b->item()) return true;
-		else if (a->item() > b->item()) {
-			if (a->first()->label() < b->first()->label()) return true;
-			else if (a->first()->label() == b->first()->label() && 
-				a->second()->label() < b->second()->label())) return true;
-		}*/
-
-
-
 		return (a->item() < b->item() ||
 				a->item() == b->item() && (
 				a->first()->label() < b->first()->label() || (
