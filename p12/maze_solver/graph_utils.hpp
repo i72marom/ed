@@ -24,38 +24,38 @@ template <class T>
 bool
 unfold_wgraph(std::istream& in, WGraph<T>& g)
 {
-    size_t capacity;
-    in >> capacity;
-    if (!in)
-        return false;
+	size_t capacity;
+	in >> capacity;
+	if (!in)
+		return false;
 
-    g = WGraph<T>(capacity);
+	g = WGraph<T>(capacity);
 
-    size_t n_nodes;
-    in >> n_nodes;
-    if (!in)
-        return false;
+	size_t n_nodes;
+	in >> n_nodes;
+	if (!in)
+		return false;
 
-    for(size_t n=0; n<n_nodes; ++n)
-    {
-        T item;
-        in >> item;
-        if (!in)
-            return false;
-        g.add_node(item);
-    }
-    size_t n_edges;
-    in >> n_edges;
-    for (size_t e=0;e<n_edges; ++e)
-    {
-        size_t u, v;
-        float w;
-        in >> u >> v >> w;
-        if (!in || u>=n_nodes || v>=n_nodes)
-            return false;
-        g.set_weight(g.node(u), g.node(v), w);
-    }
-    return true;
+	for(size_t n=0; n<n_nodes; ++n)
+	{
+		T item;
+		in >> item;
+		if (!in)
+			return false;
+		g.add_node(item);
+	}
+	size_t n_edges;
+	in >> n_edges;
+	for (size_t e=0;e<n_edges; ++e)
+	{
+		size_t u, v;
+		float w;
+		in >> u >> v >> w;
+		if (!in || u>=n_nodes || v>=n_nodes)
+			return false;
+		g.set_weight(g.node(u), g.node(v), w);
+	}
+	return true;
 }
 
 /**
@@ -75,31 +75,31 @@ template <class T>
 bool
 fold_wgraph(std::ostream& out, WGraph<T> & g)
 {
-    out << g.capacity() << std::endl;
-    out << g.size() << std::endl;
-    for (size_t n=0;n<g.size();++n)
-        out << g.node(n)->item() << std::endl;
-    std::vector< typename WGraph<T>::EdgeRef > edges;
-    g.goto_first_node();
-    while(g.has_current_node())
-    {
-        g.goto_first_edge();
-        while(g.has_current_edge())
-        {
-            edges.push_back(g.current_edge());
-            g.goto_next_edge();
-        }
-        g.goto_next_node();
-    }
-    out << edges.size() << std::endl;
-    for(size_t e=0;e<edges.size();++e)
-        out << edges[e]->first()->label() << ' '
-            << edges[e]->second()->label() << ' '
-            << edges[e]->item() << std::endl;
-    if (out)
-        return true;
-    else
-        return false;
+	out << g.capacity() << std::endl;
+	out << g.size() << std::endl;
+	for (size_t n=0;n<g.size();++n)
+		out << g.node(n)->item() << std::endl;
+	std::vector< typename WGraph<T>::EdgeRef > edges;
+	g.goto_first_node();
+	while(g.has_current_node())
+	{
+		g.goto_first_edge();
+		while(g.has_current_edge())
+		{
+			edges.push_back(g.current_edge());
+			g.goto_next_edge();
+		}
+		g.goto_next_node();
+	}
+	out << edges.size() << std::endl;
+	for(size_t e=0;e<edges.size();++e)
+		out << edges[e]->first()->label() << ' '
+			<< edges[e]->second()->label() << ' '
+			<< edges[e]->item() << std::endl;
+	if (out)
+		return true;
+	else
+		return false;
 }
 
 /**
@@ -124,18 +124,53 @@ fold_wgraph(std::ostream& out, WGraph<T> & g)
  * @warning std::runtime_error("Wrong graph") is throw if bad input format.
  */
 template<class T>
-std::shared_ptr<WGraph<T>> create_wgraph(std::istream &in) noexcept(false)
-{
-    assert(in);    
-    std::shared_ptr<WGraph<T>> graph;
+std::shared_ptr<WGraph<T>> create_wgraph(std::istream &in) noexcept(false) {
+	assert(in);    
+	std::shared_ptr<WGraph<T>> graph;
 
-    //TODO
-    //Renember if the graph is non directed, each edge u--v generate two
-    //directed edges u-->v and v-->u.
-    //If the input format is wrong, the throw std::runtime_error("Wrong graph").
+	//TODO
+	//Renember if the graph is non directed, each edge u--v generate two
+	//directed edges u-->v and v-->u.
+	//If the input format is wrong, the throw std::runtime_error("Wrong graph").
+	std::string is_directed;
+	in >> is_directed;
+	if (!in) std::runtime_error("Wrong graph");
+	
+	// obtenemos el numero de nodos
+	size_t n_nodes;
+	in >> n_nodes;
+	if (!in) std::runtime_error("Wrong graph");
 
+	// creamos el grafo
+	graph = std::shared_ptr<WGraph<T>>(new WGraph<T>(n_nodes));
 
-    return graph;
+	// añadimos los nodos al grafo
+	for(size_t i=0; i<n_nodes; ++i) {
+		T item;
+		in >> item;
+		
+		if (!in) std::runtime_error("Wrong graph");
+		
+		graph->add_node(item);
+	}
+
+	// añadimos las conexiones en funcion de 
+	// si el grafo es dirigido o no dirigido
+	size_t n_edges;
+	in >> n_edges;
+	
+	for (size_t i=0;i<n_edges; ++i) {
+		T u, v;
+		float w;
+		
+		in >> u >> v >> w;
+		
+		graph->set_weight(graph->find(u), graph->find(v), w);
+		if (is_directed == "NON_DIRECTED") 
+			graph->set_weight(graph->find(v), graph->find(u), w);
+	}
+
+	return graph;
 }
 
 #endif //__GRAPH_UTILS_HPP__
