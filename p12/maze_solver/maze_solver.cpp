@@ -63,9 +63,8 @@ maze_solver(WGraph<int>& maze,
 		//the all the points in the path from start point to end point.
 
 		//TODO
-		size_t p = predecesors.back();
+		size_t p = end->label();
 		std::list <std::tuple<int, int>> aux;
-		aux.push_front(label_to_grid_coord(end->label(), grid_width));
 		
 		while (p != start->label()) {
 			aux.push_front(label_to_grid_coord(p, grid_width));
