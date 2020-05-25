@@ -56,7 +56,6 @@ std::shared_ptr<WGraph<City>> create_wgraph(std::istream &in) noexcept(false)
 	//TODO
 	//Remenber: to save space, for the edges it is only used the name of de
 	//city and not the whole city data.
-	// comprobamos si el grafo es dirigido o no dirigido
 	std::string is_directed;
 	in >> is_directed;
 	if (!in) std::runtime_error("Wrong graph");
