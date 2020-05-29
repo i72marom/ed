@@ -16,11 +16,23 @@
  * @arg[out] W is the Weight matrix.
  */
 template<class T>
-void compute_weight_matrix(WGraph<T>& g, std::valarray<std::valarray<float>>& W)
-{
-    W.resize(g.size(), std::valarray<float>(std::numeric_limits<float>::infinity(), g.size()));    
-    //TODO
+void compute_weight_matrix(WGraph<T>& g, std::valarray<std::valarray<float>>& W) {
+	W.resize(g.size(), std::valarray<float>(std::numeric_limits<float>::infinity(), g.size()));
+	//TODO
+	g.goto_first_node();
 
+	for (int i = 0; i < g.size(); ++i) {
+		while (g.has_current_edge()) {
+			auto first = g.current_edge()->first()->label();
+			auto second = g.current_edge()->second()->label();
+			
+			if (g.current_weight() < W[first][second])
+				W[first][second] = g.current_weight();
+
+			g.goto_next_edge();
+		}
+		g.goto_next_node();
+	}
 }
 
 /**
@@ -35,16 +47,25 @@ void compute_weight_matrix(WGraph<T>& g, std::valarray<std::valarray<float>>& W)
  */
 template<class T>
 void floyd_algorithm(WGraph<T>& g, std::valarray<std::valarray<float>>& D,
-                     std::valarray<std::valarray<int>>& I)
+					 std::valarray<std::valarray<int>>& I)
 {
-    compute_weight_matrix<T>(g, D);
-    //Set self-distances to zero.
-    for (size_t i=0;i<g.size();++i)
-        D[i][i]=0.0;
-    I.resize(g.size(), std::valarray<int>(-1, g.size()));
+	compute_weight_matrix<T>(g, D);
+	//Set self-distances to zero.
+	for (size_t i=0;i<g.size();++i)
+		D[i][i]=0.0;
+	I.resize(g.size(), std::valarray<int>(-1, g.size()));
 
-    //TODO: codify the Floyd's algorithm.
-
+	//TODO: codify the Floyd's algorithm.
+	for (size_t k = 0; k < g.size(); ++k) {
+		for (size_t i = 0; i < g.size(); ++i) {
+			for (size_t j = 0; j < g.size(); ++j) {
+				if ((D[i][k] + D[k][j]) < D[i][j]) {
+					D[i][j] = D[i][k] + D[k][j];
+					I[i][j] = k;
+				}
+			}
+		}
+	}
 }
 
 /**
@@ -60,14 +81,28 @@ void floyd_algorithm(WGraph<T>& g, std::valarray<std::valarray<float>>& D,
 inline void
 floyd_compute_path(size_t u, size_t v, std::valarray<std::valarray<int>>& I, std::vector<size_t>& path)
 {
-    //Prec: distance (u,v) < inf
-    path.resize(0);
+	//Prec: distance (u,v) < inf
+	path.resize(0);
 
-    //TODO:
-    //Think first: is it necessary to build a binary tree?
-    // or
-    // is it sufficient with a recursive descent by doing an in-depth search?
+	//TODO:
+	//Think first: is it necessary to build a binary tree?
+	// or
+	// is it sufficient with a recursive descent by doing an in-depth search?
+	std::stack <std::pair <int,int>> frontier;
+	frontier.push(std::make_pair(u,v));
 
+	while (!frontier.empty()) {
+		size_t l = frontier.top().first, r = frontier.top().second;
+		frontier.pop();
+
+		if (I[l][r] == -1) path.push_back(l);
+		else {
+			frontier.push(std::make_pair(I[l][r],r));
+			frontier.push(std::make_pair(l,I[l][r]));
+		}
+	}
+
+	path.push_back(v);
 }
 
 
